@@ -1,0 +1,131 @@
+function ROWXCOL 2
+push constant 0
+pop local 1
+push constant 0
+pop local 0
+label R_LOOP
+push local 0
+push argument 2
+eq
+if-goto R_END
+push local 0
+push argument 0
+add
+pop pointer 1
+push that 0
+push local 0
+push argument 3
+call MUL 2
+push argument 1
+add
+pop pointer 1
+push that 0
+call MUL 2
+push local 1
+add
+pop local 1
+push local 0
+push constant 1
+add
+pop local 0
+goto R_LOOP
+label R_END
+push local 1
+return
+function TEST_MAC 6
+push argument 3
+push argument 5
+eq
+not
+if-goto FAIL
+push argument 2
+push argument 7
+eq
+not
+if-goto FAIL
+push constant 0
+pop static 20
+push constant 1
+pop static 20
+push constant 0
+pop local 2
+label T_I
+push local 2
+push argument 2
+eq
+if-goto T_END_I
+push constant 0
+pop local 3
+label T_J
+push local 3
+push argument 6
+eq
+if-goto T_END_J
+push argument 0
+push local 2
+push argument 4
+call MUL 2
+add
+push argument 1
+push local 3
+call MUL 2
+add
+push argument 4
+push argument 6
+call ROWXCOL 4
+push local 2
+push argument 8
+add
+pop pointer 1
+push that 0
+add
+push local 2
+push argument 6
+call MUL 2
+push local 3
+add
+push argument 9
+add
+pop pointer 1
+pop that 0
+push local 3
+push constant 1
+add
+pop local 3
+goto T_J
+label T_END_J
+push local 2
+push constant 1
+add
+pop local 2
+goto T_I
+label T_END_I
+push constant 0
+return
+label FAIL
+push constant 1
+neg
+pop static 20
+push constant 1
+neg
+return
+function MUL 2
+push constant 0
+pop local 1
+label M_LOOP
+push local 1
+push argument 1
+eq
+if-goto M_END
+push local 0
+push argument 0
+add
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto M_LOOP
+label M_END
+push local 0
+return

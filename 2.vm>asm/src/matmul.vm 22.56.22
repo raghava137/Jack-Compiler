@@ -1,0 +1,123 @@
+function MATMUL 7
+push argument 3
+push argument 5
+eq
+not
+if-goto SANITY_FAIL
+push argument 2
+push argument 7
+eq
+not
+if-goto SANITY_FAIL
+push constant 0
+pop static 20
+push constant 1
+pop static 20
+push constant 0
+pop local 0
+label LOOP_I
+push local 0
+push argument 2
+eq
+if-goto END_I
+push constant 0
+pop local 1
+label LOOP_J
+push local 1
+push argument 6
+eq
+if-goto END_J
+push constant 0
+pop local 3
+push constant 0
+pop local 2
+label LOOP_K
+push local 2
+push argument 4
+eq
+if-goto END_K
+push local 0
+push argument 4
+call MUL 2
+push local 2
+add
+push argument 0
+add
+pop pointer 1
+push that 0
+push local 2
+push argument 6
+call MUL 2
+push local 1
+add
+push argument 1
+add
+pop pointer 1
+push that 0
+call MUL 2
+push local 3
+add
+pop local 3
+push local 2
+push constant 1
+add
+pop local 2
+goto LOOP_K
+label END_K
+push local 0
+push argument 8
+add
+pop pointer 1
+push that 0
+push local 3
+add
+push local 0
+push argument 6
+call MUL 2
+push local 1
+add
+push argument 9
+add
+pop pointer 1
+pop that 0
+push local 1
+push constant 1
+add
+pop local 1
+goto LOOP_J
+label END_J
+push local 0
+push constant 1
+add
+pop local 0
+goto LOOP_I
+label END_I
+push constant 0
+return
+label SANITY_FAIL
+push constant 1
+neg
+pop static 20
+push constant 1
+neg
+return
+function MUL 2
+push constant 0
+pop local 1
+label MUL_LOOP
+push local 1
+push argument 1
+eq
+if-goto MUL_END
+push local 0
+push argument 0
+add
+pop local 0
+push local 1
+push constant 1
+add
+pop local 1
+goto MUL_LOOP
+label MUL_END
+push local 0
+return
